@@ -6,7 +6,7 @@ using ReturnToLithium.Planetary;
 using ReturnToLithium.Crew;
 using ReturnToLithium.Miscellaneous;
 
-namespace ReturnToLithium.Ship
+namespace ReturnToLithium.Crew
 {
     class TPrisoner : TPerson, IUpdatableObject
     {

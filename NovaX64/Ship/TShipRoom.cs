@@ -13,9 +13,12 @@ namespace ReturnToLithium.Ship
 
         public int X;
         public int Y;
-        public int Width;
-        public int Height;
+        public int Width;   //always a multiple of the width of a floor tile
+        public int Height;  //always a multiple of the height of a floor tile
 
+        public double OxygenLevel = 100;
+
+        public List<List<TFloorBlock>> FloorTiles;   //2D array of floor tiles
         public List<TShipRoom> AdjacentRooms;
         public List<TShipRoom> ConnectedRooms;
         public List<TShipDoor> Doors;               //Each connected room is matched to a single door.
