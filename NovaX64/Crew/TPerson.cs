@@ -17,6 +17,7 @@ namespace ReturnToLithium.Crew
         public int Y;
         public int Floor;
         public TShip CurrentShip; //if he has beamed onto an enemy ship, that ship will be the one stored here. (X and Y is relative to the current ship)
+        //Dan was here...
 
         //Walking
         private List<int> WaypointsX;//positions of each door the person walks to.
