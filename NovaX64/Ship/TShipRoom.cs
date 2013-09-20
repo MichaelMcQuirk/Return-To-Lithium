@@ -18,8 +18,8 @@ namespace ReturnToLithium.Ship
 
         public double OxygenLevel = 100;
 
-        public List<List<TFloorBlock>> FloorTiles;   //2D array of floor tiles
-        public List<TShipRoom> AdjacentRooms;
+        public List<List<TFloorTile>> FloorTiles;   //2D array of floor tiles
+        //public List<TShipRoom> AdjacentRooms;  Outdated due to adjacent floor tiles?
         public List<TShipRoom> ConnectedRooms;
         public List<TShipDoor> Doors;               //Each connected room is matched to a single door.
 

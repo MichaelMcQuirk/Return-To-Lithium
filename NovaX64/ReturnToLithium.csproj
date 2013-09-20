@@ -64,9 +64,8 @@
     <Compile Include="Planetary\TResource.cs" />
     <Compile Include="Planetary\TResourceCollecton.cs" />
     <Compile Include="Crew\TPrisoner.cs" />
-    <Compile Include="Ship\TFloorBlock.cs" />
+    <Compile Include="Ship\TFloorTile.cs" />
     <Compile Include="Ship\TShipDoor.cs" />
-    <Compile Include="Ship\TShipObject.cs" />
     <Compile Include="Ship\TShipRoom.cs" />
     <Compile Include="Ship\TShip.cs" />
     <Compile Include="Ship\TShipWall.cs" />

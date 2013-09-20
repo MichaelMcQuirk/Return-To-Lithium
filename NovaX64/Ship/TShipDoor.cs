@@ -15,6 +15,9 @@ namespace ReturnToLithium.Ship
         public int X;
         public int Y;
 
+        public TFloorTile adjacentBlock1;      //used for path finding.
+        public TFloorTile adjacentBlock2;
+
         public double ActionProgress;
 
         public void Update(DateTime currentTime)

@@ -20,7 +20,7 @@ namespace ReturnToLithium.Ship
 
 
         public List<TShipRoom> Rooms;
-        public List<List<TFloorBlock>> FloorTiles;
+        public List<List<TFloorTile>> FloorTiles;
         public List<TPerson> Occupants;
 
         public void Update(DateTime currentTime)
@@ -50,7 +50,7 @@ namespace ReturnToLithium.Ship
            \                    /
             \_|_______|______|_/
          * 
-         * Items/Rooms placed in ships will be snapped to a square grid that encompases the entire ship.
+         * Items/Rooms placed in ships will be snapped to a square grid that encompasses the entire ship.
          * Each block is 1 unit by 1 unit
          * Only one friendly crew member is allowed to occupy the same block.
          */

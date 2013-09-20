@@ -5,8 +5,6 @@ using System.Text;
 
 namespace ReturnToLithium.Ship
 {
-   
-
     class TShipWall
     {
         public int ID;
