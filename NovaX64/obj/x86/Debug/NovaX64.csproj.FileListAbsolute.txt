@@ -1,9 +1,0 @@
-C:\Users\Michael\documents\visual studio 2010\Projects\NovaX64\NovaX64\bin\Debug\NovaX64.exe
-C:\Users\Michael\documents\visual studio 2010\Projects\NovaX64\NovaX64\bin\Debug\NovaX64.pdb
-C:\Users\Michael\documents\visual studio 2010\Projects\NovaX64\NovaX64\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Users\Michael\documents\visual studio 2010\Projects\NovaX64\NovaX64\obj\x86\Debug\NovaX64.Form1.resources
-C:\Users\Michael\documents\visual studio 2010\Projects\NovaX64\NovaX64\obj\x86\Debug\NovaX64.Properties.Resources.resources
-C:\Users\Michael\documents\visual studio 2010\Projects\NovaX64\NovaX64\obj\x86\Debug\GenerateResource.read.1.tlog
-C:\Users\Michael\documents\visual studio 2010\Projects\NovaX64\NovaX64\obj\x86\Debug\GenerateResource.write.1.tlog
-C:\Users\Michael\documents\visual studio 2010\Projects\NovaX64\NovaX64\obj\x86\Debug\NovaX64.exe
-C:\Users\Michael\documents\visual studio 2010\Projects\NovaX64\NovaX64\obj\x86\Debug\NovaX64.pdb

@@ -1,0 +1,6 @@
+Z:\Users\s2122_000\documents\visual studio 2010\Projects\Return to Lithium\Return to Lithium\Return to Lithium\bin\x86\Debug\Return to Lithium.exe
+Z:\Users\s2122_000\documents\visual studio 2010\Projects\Return to Lithium\Return to Lithium\Return to Lithium\bin\x86\Debug\Return to Lithium.pdb
+Z:\Users\s2122_000\documents\visual studio 2010\Projects\Return to Lithium\Return to Lithium\Return to Lithium\obj\x86\Debug\Return to Lithium.csprojResolveAssemblyReference.cache
+Z:\Users\s2122_000\documents\visual studio 2010\Projects\Return to Lithium\Return to Lithium\Return to Lithium\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+Z:\Users\s2122_000\documents\visual studio 2010\Projects\Return to Lithium\Return to Lithium\Return to Lithium\obj\x86\Debug\Return to Lithium.exe
+Z:\Users\s2122_000\documents\visual studio 2010\Projects\Return to Lithium\Return to Lithium\Return to Lithium\obj\x86\Debug\Return to Lithium.pdb
