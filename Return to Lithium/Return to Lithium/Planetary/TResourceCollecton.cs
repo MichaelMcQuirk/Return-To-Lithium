@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ReturnToLithium.Planetary
+namespace Return_to_Lithium.Planetary
 {
     class TResourceCollecton
     {

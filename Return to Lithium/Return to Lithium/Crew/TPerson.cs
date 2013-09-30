@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ReturnToLithium.Miscellaneous;
-using ReturnToLithium.Ship;
+using Return_to_Lithium.Miscellaneous;
+using Return_to_Lithium.Ships;
 
-namespace ReturnToLithium.Crew
+namespace Return_to_Lithium.Crew
 {
     enum PersonStatus {Working, Idle, Walking, Fixing, Fighting, Firefighting, Dead}
     enum Alleigence {Friendly, Ally, Neutral, Enemy}

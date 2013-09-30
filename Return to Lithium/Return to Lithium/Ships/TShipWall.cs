@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Return_to_Lithium.Ships;
 
-namespace ReturnToLithium.Ship
+namespace Return_to_Lithium.Ships
 {
     class TShipWall
     {
         public int ID;
         public ObjectOrientation Orientation;
-        public int Length;          //Width if horizontal, Height if vertical.
+        public int Length;          //Width if horizontal, Height if vertical. (in # of tiles)
         public bool Door;
 
-        public int Health;          //0..100 (if not 100, then gas will be escaping)
+        public List<TWallSegment> Segments;
 
     }
 }

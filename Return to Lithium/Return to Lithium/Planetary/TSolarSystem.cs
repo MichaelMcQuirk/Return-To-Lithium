@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ReturnToLithium.Miscellaneous;
+using Return_to_Lithium.Miscellaneous;
 
-namespace ReturnToLithium.Planetary
+namespace Return_to_Lithium.Planetary
 {
     class TSolarSystem : IUpdatableObject
     {

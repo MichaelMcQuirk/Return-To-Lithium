@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ReturnToLithium.Planetary;
-using ReturnToLithium.Miscellaneous;
+using Return_to_Lithium.Planetary;
+using Return_to_Lithium.Miscellaneous;
 
-namespace ReturnToLithium.Economics
+namespace Return_to_Lithium.Economics
 {
     class TMarket : IUpdatableObject
     {

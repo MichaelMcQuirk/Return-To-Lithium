@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ReturnToLithium.Ship;
-using ReturnToLithium.Miscellaneous;
+using Return_to_Lithium.Ships;
+using Return_to_Lithium.Miscellaneous;
 
-namespace ReturnToLithium.Crew
+namespace Return_to_Lithium.Crew
 {
     class TCrewMember : TPerson, IUpdatableObject
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace ReturnToLithium
+namespace Return_to_Lithium
 {
 
     public enum PlanetoidalClass { Moon, Planet, GasGiant, Star, Asteroid };
