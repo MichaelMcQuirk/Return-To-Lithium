@@ -48,6 +48,7 @@ namespace Return_to_Lithium
         /// </summary>
         public Game1()
         {
+            IsMouseVisible = true;
             Content.RootDirectory = "Content";
 
             graphics = new GraphicsDeviceManager(this);

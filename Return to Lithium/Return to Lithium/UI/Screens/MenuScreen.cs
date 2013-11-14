@@ -107,6 +107,31 @@ namespace Return_to_Lithium.UI.Screens
             {
                 OnCancel(playerIndex);
             }
+
+            //MOUSE STUFF
+            if (input.HasMouseMoved())
+                for (int i = 0; i < menuEntries.Count; i++)
+                {
+                    if (input.LastMouseState.Y > menuEntries[i].Position.Y &&
+                        input.LastMouseState.Y < menuEntries[i].Position.Y + menuEntries[i].GetHeight(this)/2 &&
+                         input.LastMouseState.X > menuEntries[i].Position.X &&
+                             input.LastMouseState.X < menuEntries[i].Position.X + menuEntries[i].GetWidth(this))
+                    {
+                        selectedEntry = i;
+                    }
+                }
+
+            if (input.IsNewLeftMouseClick())
+            {
+                for (int i = 0; i < menuEntries.Count; i++)
+                {
+                    if (input.LastMouseState.Y > menuEntries[i].Position.Y &&
+                        input.LastMouseState.Y < menuEntries[i].Position.Y + menuEntries[i].GetHeight(this) / 2)
+                    {
+                        OnSelectEntry(i, playerIndex);
+                    }
+                }
+            } 
         }
 
 

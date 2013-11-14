@@ -30,6 +30,7 @@ namespace Return_to_Lithium.UI.Screens
         {
             // Create our menu entries.
             MenuEntry playGameMenuEntry = new MenuEntry("Play Game");
+            MenuEntry prototypeScreensMenuEntry = new MenuEntry("Prototype Screens");
             MenuEntry optionsMenuEntry = new MenuEntry("Options");
             MenuEntry exitMenuEntry = new MenuEntry("Exit");
 
@@ -37,8 +38,11 @@ namespace Return_to_Lithium.UI.Screens
             playGameMenuEntry.Selected += PlayGameMenuEntrySelected;
             optionsMenuEntry.Selected += OptionsMenuEntrySelected;
             exitMenuEntry.Selected += OnCancel;
+            prototypeScreensMenuEntry.Selected += DisplayPrototypeScreenMenu;
+
 
             // Add entries to the menu.
+            MenuEntries.Add(prototypeScreensMenuEntry);
             MenuEntries.Add(playGameMenuEntry);
             MenuEntries.Add(optionsMenuEntry);
             MenuEntries.Add(exitMenuEntry);
@@ -59,6 +63,10 @@ namespace Return_to_Lithium.UI.Screens
                                new GameplayScreen());
         }
 
+        void DisplayPrototypeScreenMenu(object sender, PlayerIndexEventArgs e)
+        {
+            ScreenManager.AddScreen(new PrototypeMenuScreen(), e.PlayerIndex);
+        }
 
         /// <summary>
         /// Event handler for when the Options menu entry is selected.

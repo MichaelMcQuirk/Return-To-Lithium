@@ -34,6 +34,20 @@ namespace Return_to_Lithium.UI.Screen_Manager
         public readonly KeyboardState[] LastKeyboardStates;
         public readonly GamePadState[] LastGamePadStates;
 
+#if WINDOWS
+        public MouseState CurrentMouseState
+        {
+            get { return currentMouseState; }
+        }
+        protected MouseState currentMouseState;
+
+        public MouseState LastMouseState
+        {
+            get { return lastMouseState; }
+        }
+        protected MouseState lastMouseState;
+#endif  
+
         public readonly bool[] GamePadWasConnected;
 
         public TouchCollection TouchState;
@@ -57,6 +71,12 @@ namespace Return_to_Lithium.UI.Screen_Manager
             LastGamePadStates = new GamePadState[MaxInputs];
 
             GamePadWasConnected = new bool[MaxInputs];
+
+#if WINDOWS
+            currentMouseState = new MouseState();
+            lastMouseState = new MouseState();
+#endif 
+
         }
 
 
@@ -78,6 +98,7 @@ namespace Return_to_Lithium.UI.Screen_Manager
                 CurrentKeyboardStates[i] = Keyboard.GetState((PlayerIndex)i);
                 CurrentGamePadStates[i] = GamePad.GetState((PlayerIndex)i);
 
+
                 // Keep track of whether a gamepad has ever been
                 // connected, so we can detect if it is unplugged.
                 if (CurrentGamePadStates[i].IsConnected)
@@ -85,6 +106,12 @@ namespace Return_to_Lithium.UI.Screen_Manager
                     GamePadWasConnected[i] = true;
                 }
             }
+
+#if WINDOWS
+            //record mouse state 
+            lastMouseState = currentMouseState;
+            currentMouseState = Mouse.GetState();
+#endif 
 
             TouchState = TouchPanel.GetState();
 
@@ -124,6 +151,70 @@ namespace Return_to_Lithium.UI.Screen_Manager
                         IsNewKeyPress(key, PlayerIndex.Four, out playerIndex));
             }
         }
+
+#if WINDOWS
+
+        #region Mouse Listeners
+
+        ///<summary> 
+        //Checks for a left mouse button click input from the user and returns true  
+        //if a left click was performed. 
+        /// </summary> 
+        /// <returns>True: If left mouse button was clicked.</returns> 
+        public bool IsNewLeftMouseClick()
+        {
+            return (currentMouseState.LeftButton == ButtonState.Released &&
+                lastMouseState.LeftButton == ButtonState.Pressed);
+        }
+
+        /// <summary> 
+        /// Checks for a right mouse button click input form the user and returns 
+        /// true if a right mouse click was performed. 
+        /// </summary> 
+        /// <returns>True: If right mouse button was clicked</returns> 
+        public bool IsNewRightMouseClick()
+        {
+            return (currentMouseState.RightButton == ButtonState.Released &&
+                lastMouseState.RightButton == ButtonState.Pressed);
+        }
+
+        /// <summary> 
+        /// Checks for a third (middle) mouse button click input form the user and returns 
+        /// true if a third mouse click was performed. 
+        /// </summary> 
+        /// <returns>True: If third mouse button was clicked</returns> 
+        public bool IsNewThirdMouseClick()
+        {
+            return (currentMouseState.MiddleButton == ButtonState.Pressed &&
+                lastMouseState.MiddleButton == ButtonState.Released);
+        }
+
+        ///<summary> 
+        ///Checks if the mouse has been scrolled up 
+        ///</summary> 
+        ///<returns>True: If the mouse wheel scrolled up</returns> 
+        public bool IsNewMouseScrollUp()
+        {
+            return (currentMouseState.ScrollWheelValue > lastMouseState.ScrollWheelValue);
+        }
+
+        ///<summary> 
+        ///Checks if the mouse has been scrolled down 
+        ///</summary> 
+        ///<returns>True: If the mouse wheel scrolled down</returns> 
+        public bool IsNewMouseScrollDown()
+        {
+            return (currentMouseState.ScrollWheelValue < lastMouseState.ScrollWheelValue);
+        }
+
+        public bool HasMouseMoved()
+        {
+            return (currentMouseState.X != lastMouseState.X || currentMouseState.Y != lastMouseState.Y);
+        }
+
+        #endregion
+
+#endif 
 
 
         /// <summary>
@@ -196,10 +287,18 @@ namespace Return_to_Lithium.UI.Screen_Manager
         {
             PlayerIndex playerIndex;
 
+#if XBOX 
+            return IsNewButtonPress(Buttons.DPadUp, controllingPlayer, out playerIndex) || 
+                   IsNewButtonPress(Buttons.LeftThumbstickUp, controllingPlayer, out playerIndex); 
+#endif
+
+#if WINDOWS
             return IsNewKeyPress(Keys.Up, controllingPlayer, out playerIndex) ||
                    IsNewButtonPress(Buttons.DPadUp, controllingPlayer, out playerIndex) ||
-                   IsNewButtonPress(Buttons.LeftThumbstickUp, controllingPlayer, out playerIndex);
-        }
+                   IsNewButtonPress(Buttons.LeftThumbstickUp, controllingPlayer, out playerIndex) ||
+                   IsNewMouseScrollUp();
+#endif
+        } 
 
 
         /// <summary>
@@ -210,11 +309,18 @@ namespace Return_to_Lithium.UI.Screen_Manager
         public bool IsMenuDown(PlayerIndex? controllingPlayer)
         {
             PlayerIndex playerIndex;
+#if XBOX 
+            return IsNewButtonPress(Buttons.DPadDown, controllingPlayer, out playerIndex) || 
+                   IsNewButtonPress(Buttons.LeftThumbstickDown, controllingPlayer, out playerIndex); 
+#endif
 
+#if WINDOWS
             return IsNewKeyPress(Keys.Down, controllingPlayer, out playerIndex) ||
                    IsNewButtonPress(Buttons.DPadDown, controllingPlayer, out playerIndex) ||
-                   IsNewButtonPress(Buttons.LeftThumbstickDown, controllingPlayer, out playerIndex);
-        }
+                   IsNewButtonPress(Buttons.LeftThumbstickDown, controllingPlayer, out playerIndex) ||
+                   IsNewMouseScrollDown();
+#endif
+        } 
 
 
         /// <summary>
