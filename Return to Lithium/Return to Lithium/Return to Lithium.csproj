@@ -128,13 +128,14 @@
     <Compile Include="Ships\TShipRoom.cs" />
     <Compile Include="Ships\TShipWall.cs" />
     <Compile Include="Ships\TWallSegment.cs" />
-    <Compile Include="UI\Screen Manager\GameFrame.cs" />
+    <Compile Include="UI\Components\GameFrame.cs" />
+    <Compile Include="UI\Components\GE_Label.cs" />
     <Compile Include="UI\Screen Manager\GameScreen.cs" />
     <Compile Include="UI\Screen Manager\InputState.cs" />
     <Compile Include="UI\Screen Manager\ScreenManager.cs" />
     <Compile Include="UI\Screens\aSkeletonScreen.cs" />
     <Compile Include="UI\Screens\BackgroundScreen.cs" />
-    <Compile Include="UI\Screen Manager\GameEntity.cs" />
+    <Compile Include="UI\Components\GameEntity.cs" />
     <Compile Include="UI\Screens\GameplayScreen.cs" />
     <Compile Include="UI\Screens\LoadingScreen.cs" />
     <Compile Include="UI\Screens\MainMenuScreen.cs" />

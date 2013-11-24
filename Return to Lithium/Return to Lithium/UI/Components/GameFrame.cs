@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Return_to_Lithium.UI.Screen_Manager;
 
-namespace Return_to_Lithium.UI.Screen_Manager
+namespace Return_to_Lithium.UI.Components
 {
     /* What is a GameFrame?
      * A game frame is simply a collection of GameEntities.
@@ -17,20 +18,17 @@ namespace Return_to_Lithium.UI.Screen_Manager
      * When drawing your frames, tell the dimenions of what you want drawn to the root frame, and it will manage the rest of the drawing process'.
      * GameEntities have a method that can return their position relative to the 
      */
-    class GameFrame
+    class GameFrame : GameEntity
     {
-        private GameFrame Parent;
         private List<GameFrame> Children = new List<GameFrame>();
         private List<GameEntity> Entities = new List<GameEntity>();
 
-        public string Name;//must be unique
-        public Vector2 Position;
-        public Vector2 Length;
-        public Vector2 GlobalPosition
+        public string Name;//must be unique - used for accessing frames by name
+        public new Vector2 GlobalPosition //overrides inherited GlobalPosition Code
         {
             get
             {
-                if (Parent != null) return Position + Parent.GlobalPosition;
+                if (ParentFrame != null) return Position + ParentFrame.GlobalPosition;
                 else
                     return Position;
             }
@@ -58,7 +56,7 @@ namespace Return_to_Lithium.UI.Screen_Manager
             if (dispose)
                 Dispose();
 
-            Parent.Children.Remove(this);
+            ParentFrame.Children.Remove(this);
         }
         
         private bool DoesFrameContainGPos(Vector2 value)//alows for partial overlapping when left is just smaller than right edge.
@@ -69,8 +67,8 @@ namespace Return_to_Lithium.UI.Screen_Manager
 
         public void MoveToFrame(GameFrame newHost)
         {
-            this.Parent.Children.Remove(this);
-            this.Parent = newHost;
+            this.ParentFrame.Children.Remove(this);
+            this.ParentFrame = newHost;
             newHost.Children.Add(this);
         }
 
@@ -79,34 +77,115 @@ namespace Return_to_Lithium.UI.Screen_Manager
             MoveToFrame(getFrame(frameName));
         }
 
-        private GameFrame getFrame(string frameName)
+        public GameFrame getFrame(string frameName)
         {
+            List<GameFrame> list = new List<GameFrame>(); //an entire list of all subframes (for partial matching with levestein distancing)
+
             GameFrame root = this;
-            while (root.Parent != null)
-                root = root.Parent;
-            GameFrame result = recFindFrame(root, frameName);
+            while (root.ParentFrame != null)
+                root = root.ParentFrame;
+            GameFrame result = recFindFrame(root, frameName, ref list);
+
+            if (result == null)
+            {
+                result = getClosestNameMatch(list, frameName, 3);
+                //if (result != null)
+                //    log("GameFrame.getFrame()","Identical match for '" + frameName + "' not found. Closest match returned: '" + result.Name + "'");
+            }
+
             if (result == null)
                 throw new Exception("There is no frame by the name of '" + frameName + "'!");
             else
                 return result;
         }
 
-        private GameFrame recFindFrame(GameFrame parent, string framename)
+        private GameFrame getClosestNameMatch(List<GameFrame> list, string target, int minTollerance)
         {
+            if (list.Count == 0) return null;
+            GameFrame minFrame = list[0];
+            int minDist = ComputeLevenshtein(target.ToLower(), minFrame.Name.ToLower());
+
+            foreach (GameFrame GF in list.GetRange(1,list.Count - 1))
+            {
+                int curDist = ComputeLevenshtein(target.ToLower(), GF.Name.ToLower());
+                if (curDist < minDist)
+                {
+                    minDist = curDist;
+                    minFrame = GF;
+                }
+            }
+
+            if (minDist <= minTollerance)
+                return minFrame;
+            else
+                return null;
+        }
+
+        private GameFrame recFindFrame(GameFrame parent, string framename, ref List<GameFrame> list)
+        {
+            list.Add(parent);
             if (parent.Name == framename)
                 return parent;
             else
                 foreach (GameFrame child in Children)
                 {
-                    GameFrame searchResult = recFindFrame(child, framename);
+                    GameFrame searchResult = recFindFrame(child, framename, ref list);
                     if (searchResult != null) return searchResult;
                 }
             return null;
         }
+
+        private int ComputeLevenshtein(string s, string t)
+        {
+            //http ://www.dotnetperls.com/levenshtein
+            int n = s.Length;
+            int m = t.Length;
+            int[,] d = new int[n + 1, m + 1];
+
+            // Step 1
+            if (n == 0)
+            {
+                return m;
+            }
+
+            if (m == 0)
+            {
+                return n;
+            }
+
+            // Step 2
+            for (int i = 0; i <= n; d[i, 0] = i++)
+            {
+            }
+
+            for (int j = 0; j <= m; d[0, j] = j++)
+            {
+            }
+
+            // Step 3
+            for (int i = 1; i <= n; i++)
+            {
+                //Step 4
+                for (int j = 1; j <= m; j++)
+                {
+                    // Step 5
+                    int cost = (t[j - 1] == s[i - 1]) ? 0 : 1;
+
+                    // Step 6
+                    d[i, j] = Math.Min(
+                        Math.Min(d[i - 1, j] + 1, d[i, j - 1] + 1),
+                        d[i - 1, j - 1] + cost);
+                }
+            }
+            // Step 7
+            return d[n, m];
+        }
+
+
         #endregion
 
         #region StandardMethods
-        public virtual void Initialize() //why would need to initialize a frame?
+        public override void Initialize() //why would need to initialize a frame?
         {
             foreach (GameEntity entity in Entities)
                 entity.Initialize();
@@ -114,7 +193,7 @@ namespace Return_to_Lithium.UI.Screen_Manager
                 child.Initialize();  
         }
 
-        public virtual void LoadContent() 
+        public override void LoadContent() 
         {
             foreach (GameEntity entity in Entities)
                 entity.LoadContent();
@@ -122,7 +201,7 @@ namespace Return_to_Lithium.UI.Screen_Manager
                 child.LoadContent();
         }
 
-        public virtual void Update(GameTime gameTime) 
+        public override void Update(GameTime gameTime) 
         {
             foreach (GameEntity entity in Entities)
                 entity.Update(gameTime);
@@ -130,7 +209,7 @@ namespace Return_to_Lithium.UI.Screen_Manager
                 child.Update(gameTime);
         }
 
-        public virtual void HandleInput(InputState input) 
+        public override void HandleInput(InputState input) 
         {
             foreach (GameEntity entity in Entities)
                 entity.HandleInput(input);
@@ -138,7 +217,7 @@ namespace Return_to_Lithium.UI.Screen_Manager
                 child.HandleInput(input);
         }
 
-        public virtual void Draw(GameTime gameTime) 
+        public override void Draw(GameTime gameTime) 
         { 
             foreach (GameEntity entity in Entities)
                 entity.Draw(gameTime);
@@ -146,7 +225,7 @@ namespace Return_to_Lithium.UI.Screen_Manager
                 child.Draw(gameTime);
         }
 
-        public virtual void Dispose()
+        public override void Dispose()
         {
             foreach (GameEntity entity in Entities)
                 entity.Dispose();
