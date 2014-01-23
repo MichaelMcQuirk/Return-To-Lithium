@@ -17,13 +17,18 @@ namespace Return_to_Lithium.UI.Components
      * Frames cannot rotate.
      * When drawing your frames, tell the dimenions of what you want drawn to the root frame, and it will manage the rest of the drawing process'.
      * GameEntities have a method that can return their position relative to the 
+     * 
+     * 
+     * RULE: Once an entity has been placed within a frame, it cannot move to anouther frame. You'll have to move it's parent frame instead.
+     *       Which is cool cuz it means that names only need to be unique within thier little frame and not sub-frames.
+     *       Also, you cannot delete an entity without deleting its entire frame. (though, can stop drawing an entity quite easily)
      */
     class GameFrame : GameEntity
     {
         private List<GameFrame> Children = new List<GameFrame>();
         private List<GameEntity> Entities = new List<GameEntity>();
 
-        public string Name;//must be unique - used for accessing frames by name
+        public string Name;//must be unique - used for accessing frames by name. leave blank for an auto-number to be assigned
         public new Vector2 GlobalPosition //overrides inherited GlobalPosition Code
         {
             get
@@ -75,6 +80,11 @@ namespace Return_to_Lithium.UI.Components
         public void MoveToFrame(string frameName)
         {
             MoveToFrame(getFrame(frameName));
+        }
+
+        public void AddChildFrame(GameFrame newFrame)
+        {
+            Children.Add(newFrame);
         }
 
         public GameFrame getFrame(string frameName)
@@ -181,6 +191,51 @@ namespace Return_to_Lithium.UI.Components
             return d[n, m];
         }
 
+        #endregion
+
+        #region EntityManagement
+
+        public void AddEntity(GameEntity newEntity)
+        {
+            foreach (GameEntity entity in Entities)
+                if (entity.Name == newEntity.Name)
+                {
+                    throw new Exception("An entity with the name " + newEntity.Name + " already exists within the frame " + this.Name);
+                }
+            Entities.Add(newEntity);
+            newEntity.ParentFrame = this;
+        }
+
+        //Note: it is advised that you keep actual variables (and not use the method below) of each entity so as to maximize speed.
+        public GameEntity GetEntity(string entityName)
+        {
+            List<GameEntity> list = new List<GameEntity>();
+
+            foreach (GameEntity entity in Entities)
+                list.Add(entity);
+
+            if (list.Count == 0) return null;
+            GameEntity minEntity = list[0];
+            int minDist = ComputeLevenshtein(entityName.ToLower(), minEntity.Name.ToLower());
+
+            foreach (GameEntity GE in list.GetRange(1, list.Count - 1))
+            {
+                int curDist = ComputeLevenshtein(entityName.ToLower(), GE.Name.ToLower());
+                if (curDist < minDist)
+                {
+                    minDist = curDist;
+                    minEntity = GE;
+                }
+            }
+
+            if (minDist <= 3)
+                return minEntity;
+            else
+            {
+                throw new Exception("There is no entity by the name of '" + entityName + "'!");
+                return null;
+            }
+        }
 
         #endregion
 
@@ -232,6 +287,10 @@ namespace Return_to_Lithium.UI.Components
             foreach (GameFrame child in Children)
                 child.Dispose();
         }
+
+        public GameFrame(GameScreen screen) :
+            base(screen,"",0,0,0,0,"", "")
+        { }
         #endregion
 
         #region Saving&Loading

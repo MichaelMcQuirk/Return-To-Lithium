@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using System.Threading;
+using Return_to_Lithium.UI.Components;
 
 namespace Return_to_Lithium.UI.Screens
 {
@@ -16,10 +17,18 @@ namespace Return_to_Lithium.UI.Screens
         private float pauseAlpha;
         private ContentManager content;
 
+        private GameEntity testEntity;
+        private GameFrame testFrame;
+
         public PrototypeShipDisplayScreen()
         {
             TransitionOnTime = TimeSpan.FromSeconds(1.5);
             TransitionOffTime = TimeSpan.FromSeconds(0.5);
+
+            testEntity = new GameEntity(this, "testEntity", 50, 50, 50, 50, "background1lowres");
+            testFrame = new GameFrame(this);
+            testFrame.Position.X = 200;
+            testFrame.AddEntity(testEntity);
         }
 
         public override void LoadContent()
@@ -31,6 +40,7 @@ namespace Return_to_Lithium.UI.Screens
             //gameFont = content.Load<SpriteFont>("gamefont");
 
             //ADD LOAD CONTENT CODE HERE:
+            testEntity.LoadContent();
 
             //------------------Do-not-edit-----------------
             Thread.Sleep(1000);//remove once you actually start loading stuff. this just makes the loading screen display for a sec
@@ -95,6 +105,8 @@ namespace Return_to_Lithium.UI.Screens
 
             spriteBatch.Begin();
             //ADD DRAW CODE HERE:
+
+            testEntity.Draw(gameTime);
 
             spriteBatch.End();
 

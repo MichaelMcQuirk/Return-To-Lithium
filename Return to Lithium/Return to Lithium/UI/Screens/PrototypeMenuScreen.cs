@@ -29,7 +29,8 @@ namespace Return_to_Lithium.UI.Screens
         #region Handle Input
         void ShipDisplayMenuEntrySelected(object sender, PlayerIndexEventArgs e)
         {
-            LoadingScreen.Load(ScreenManager, true, e.PlayerIndex,  new PrototypeShipDisplayScreen());
+            //LoadingScreen.Load(ScreenManager, true, e.PlayerIndex,  new PrototypeShipDisplayScreen());
+            ScreenManager.AddScreen(new PrototypeShipDisplayScreen(), e.PlayerIndex);
         }
 
         protected override void OnCancel(PlayerIndex playerIndex)
