@@ -17,12 +17,21 @@ namespace Return_to_Lithium.UI.Components
 
         public string Name;
         private static int EntityCount = 0;
+        public bool Visible = true;
 
-        public Vector2 GlobalPosition        //relative to root frame. (USE THIS ONE FOR GAME CODE)
-            { get { return ParentFrame.GlobalPosition + Position; } set { Position = value - ParentFrame.GlobalPosition; } }   
+        public Rectangle getGlobalXYWH()
+        {
+                if (ParentFrame != null)
+                {
+                    Rectangle result = new Rectangle(XYWH.X, XYWH.Y, XYWH.Width, XYWH.Height);
+                    result.Offset(ParentFrame.getGlobalXYWH().Location);
+                    return result;
+                }
+                else
+                    return XYWH;
+        } 
         
-        public Vector2 Position;             //relative to current frame
-        public Vector2 Length;      //x = width etc.
+        public Rectangle XYWH;
         public Texture2D Texture;
         public Texture2D Texture_Selected;
         private string Texture_Loci;
@@ -42,7 +51,7 @@ namespace Return_to_Lithium.UI.Components
         public event EventHandler<PlayerIndexEventArgs> CycleSelect;
         public event EventHandler<PlayerIndexEventArgs> CycleDeselect;
 
-        public GameEntity(GameScreen screen, string name , float PosX, float PosY, float Width, float Height, string textureLoci, string textureSelectedLoci = "")
+        public GameEntity(GameScreen screen, string name, int PosX, int PosY, int Width, int Height, string textureLoci, string textureSelectedLoci = "")
         {
             EntityCount++;
 
@@ -58,8 +67,7 @@ namespace Return_to_Lithium.UI.Components
             else
                 isCycleSelectable = false;
 
-            Position = new Vector2(PosX, PosY);
-            Length = new Vector2(Width, Height);
+            XYWH = new Rectangle(PosX, PosY, Width, Height);
             selectionFade = 0;
             isSelected = false;
         }
@@ -84,9 +92,9 @@ namespace Return_to_Lithium.UI.Components
             ScreenManager screenManager = Screen.ScreenManager;
             SpriteBatch spriteBatch = screenManager.SpriteBatch;
 
-            if (Texture_Selected != null) spriteBatch.Draw(Texture_Selected, new Rectangle((int)GlobalPosition.X, (int)GlobalPosition.Y, (int)Length.X, (int)Length.Y), Color.Red);
+            if (Texture_Selected != null) spriteBatch.Draw(Texture_Selected, new Rectangle(getGlobalXYWH().X, getGlobalXYWH().Y, XYWH.Width, XYWH.Height), Color.Red);
             else
-                if (Texture != null) spriteBatch.Draw(Texture, new Rectangle((int)GlobalPosition.X, (int)GlobalPosition.Y, (int)Length.X, (int)Length.Y), Color.Red);
+                if (Texture != null) spriteBatch.Draw(Texture, new Rectangle(getGlobalXYWH().X, getGlobalXYWH().Y, XYWH.Width, XYWH.Height), Color.Red);
         }     
 
         public virtual void Dispose() { }
@@ -124,6 +132,16 @@ namespace Return_to_Lithium.UI.Components
 
             //spriteBatch.DrawString(font, text, position, color, 0,
             //                       origin, scale, SpriteEffects.None, 0);
+        }
+
+        public static Point SubractPoints(Point p1, Point p2)
+        {
+            return new Point(p1.X - p2.X, p1.Y - p2.Y);
+        }
+
+        public static Point AddPoints(Point p1, Point p2)
+        {
+            return new Point(p1.X + p2.X, p1.Y + p2.Y);
         }
     }
 }

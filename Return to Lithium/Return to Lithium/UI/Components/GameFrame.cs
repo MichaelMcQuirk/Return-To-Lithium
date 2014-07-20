@@ -29,23 +29,7 @@ namespace Return_to_Lithium.UI.Components
         private List<GameEntity> Entities = new List<GameEntity>();
 
         public string Name;//must be unique - used for accessing frames by name. leave blank for an auto-number to be assigned
-        public new Vector2 GlobalPosition //overrides inherited GlobalPosition Code
-        {
-            get
-            {
-                if (ParentFrame != null) return Position + ParentFrame.GlobalPosition;
-                else
-                    return Position;
-            }
-            set
-            {
-                Vector2 difference = value - GlobalPosition;
-                if (DoesFrameContainGPos(value))
-                    Position = difference;//if it is still contained within current frame
-                else
-                    throw new Exception("Newly assigned global position out of current frame's bounds!");
-            }
-        }
+        
 
         #region FrameManagement
         public void Delete(bool dispose = true)
@@ -62,12 +46,6 @@ namespace Return_to_Lithium.UI.Components
                 Dispose();
 
             ParentFrame.Children.Remove(this);
-        }
-        
-        private bool DoesFrameContainGPos(Vector2 value)//alows for partial overlapping when left is just smaller than right edge.
-        {
-            Vector2 difference = value - GlobalPosition;
-            return (difference.X >= 0 && difference.X <= Length.X && difference.Y >= 0 && difference.Y <= Length.Y);
         }
 
         public void MoveToFrame(GameFrame newHost)
