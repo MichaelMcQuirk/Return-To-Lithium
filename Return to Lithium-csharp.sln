@@ -1,11 +1,9 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2008
 
-Project("{10DC9704-E8EF-8EAD-968F-5B5CACF8CD10}") = "Return to Lithium", "Assembly-CSharp-firstpass.csproj", "{522B7269-FA64-90BB-35DB-759B90865F11}"
+Project("{10DC9704-E8EF-8EAD-968F-5B5CACF8CD10}") = "Return to Lithium", "Assembly-CSharp-firstpass-vs.csproj", "{522B7269-FA64-90BB-35DB-759B90865F11}"
 EndProject
-Project("{10DC9704-E8EF-8EAD-968F-5B5CACF8CD10}") = "Return to Lithium", "Assembly-CSharp.csproj", "{DB6C7CCF-5616-FAFC-3544-A324A3CDF676}"
-EndProject
-Project("{10DC9704-E8EF-8EAD-968F-5B5CACF8CD10}") = "Return to Lithium", "Assembly-UnityScript-firstpass.unityproj", "{B01BF58D-7832-FC22-14B9-D573B08A30CE}"
+Project("{10DC9704-E8EF-8EAD-968F-5B5CACF8CD10}") = "Return to Lithium", "Assembly-CSharp-vs.csproj", "{DB6C7CCF-5616-FAFC-3544-A324A3CDF676}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,15 +19,11 @@ Global
 		{DB6C7CCF-5616-FAFC-3544-A324A3CDF676}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB6C7CCF-5616-FAFC-3544-A324A3CDF676}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB6C7CCF-5616-FAFC-3544-A324A3CDF676}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B01BF58D-7832-FC22-14B9-D573B08A30CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B01BF58D-7832-FC22-14B9-D573B08A30CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B01BF58D-7832-FC22-14B9-D573B08A30CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B01BF58D-7832-FC22-14B9-D573B08A30CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-			GlobalSection(MonoDevelopProperties) = preSolution
+				GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1

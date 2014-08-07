@@ -1,8 +1,0 @@
-Z:\Users\s2122_000\Documents\Visual Studio 2010\Projects\Return to Lithium\RTL Editor\bin\Debug\RTL Editor.exe
-Z:\Users\s2122_000\Documents\Visual Studio 2010\Projects\Return to Lithium\RTL Editor\bin\Debug\RTL Editor.pdb
-Z:\Users\s2122_000\Documents\Visual Studio 2010\Projects\Return to Lithium\RTL Editor\obj\x86\Debug\RTL_Editor.Properties.Resources.resources
-Z:\Users\s2122_000\Documents\Visual Studio 2010\Projects\Return to Lithium\RTL Editor\obj\x86\Debug\RTL Editor.csproj.GenerateResource.Cache
-Z:\Users\s2122_000\Documents\Visual Studio 2010\Projects\Return to Lithium\RTL Editor\obj\x86\Debug\RTL Editor.exe
-Z:\Users\s2122_000\Documents\Visual Studio 2010\Projects\Return to Lithium\RTL Editor\obj\x86\Debug\RTL Editor.pdb
-Z:\Users\s2122_000\Documents\Visual Studio 2010\Projects\Return to Lithium\RTL Editor\obj\x86\Debug\RTL Editor.csprojResolveAssemblyReference.cache
-Z:\Users\s2122_000\Documents\Visual Studio 2010\Projects\Return to Lithium\RTL Editor\obj\x86\Debug\RTL_Editor.Form1.resources
